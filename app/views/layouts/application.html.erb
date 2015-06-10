@@ -26,10 +26,11 @@
           </li>
         <% end %>
       </ul>
+      <div class="notice_message">
+        <%= render "questions/notice" %>
+      </div>
     </div>
 
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
   
   <%= yield %>
   

@@ -46,12 +46,14 @@ group :development, :test do
   group :test, :development do
   	gem 'rspec-rails'
   	gem 'factory_girl_rails'
+    gem 'selenium-webdriver'
+    gem 'database_cleaner'
+    gem 'capybara'
+    gem 'launchy'
   end
 
   group :test do
   	gem 'shoulda-matchers'
-    gem 'capybara'
-    gem 'launchy'
   end
 end
 

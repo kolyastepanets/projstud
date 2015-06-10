@@ -21,13 +21,13 @@ feature 'invalid question and answer', %q{
     expect(page).to have_content "Title can't be blankBody can't be blank"
   end
 
-  scenario 'invalid answer' do
+  scenario 'invalid answer', js: true do
     sign_in(user)
 
     visit question_path(question)
     fill_in 'Body', with: ''
     click_on 'Add answer'
-    
+
     expect(page).to have_content "Body can't be blank"
     
   end

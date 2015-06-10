@@ -9,7 +9,7 @@ feature 'user creates answer', %q{
   given(:user) { create(:user) }
   given(:question) { create(:question, user: user) }
 
-  scenario 'authenticated user creates answer to @question' do
+  scenario 'authenticated user creates answer to @question', js: true do
     sign_in(user)
     visit question_path(question)
     fill_in 'Body', with: 'answer for question'

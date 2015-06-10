@@ -7,9 +7,9 @@ class AnswersController < ApplicationController
     @answer.user = current_user
 
     if @answer.save
-      redirect_to @question, notice: 'Your answer successfully created.'
+      flash[:notice] = 'Your answer successfully created.'
     else
-      redirect_to @question, notice: "Body can't be blank"
+      flash[:notice] = "Body can't be blank"
     end
   end
 

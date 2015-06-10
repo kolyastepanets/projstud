@@ -1,18 +1,13 @@
-= @question.title
-= @question.body
+h1= @question.title
+p= @question.body
 - if current_user
   = link_to 'Delete question', question_path(@question), method: :delete if @question.user == current_user
+br
+br
+.answer
+  = render @question.answers
 
-- @question.answers.each do |answer|
-  - if answer.persisted?
-  li = answer.body
-  = link_to 'Delete answer', question_answer_path(@question, answer), method: :delete if answer.user == current_user && signed_in?
-         
-- if @answer
-  - @answer.errors.full_messages.each do |message|
-    = message
-
-= form_for [@question, @question.answers.build] do |f|
+= form_for [@question, @question.answers.build], remote: true do |f|
   = f.label :body
   = f.text_area :body
   = f.submit 'Add answer'
