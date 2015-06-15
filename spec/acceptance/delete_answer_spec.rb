@@ -7,7 +7,7 @@ feature 'delete answer' do
   given(:question) { create(:question, user: user) }
   given!(:answer) { create(:answer, question: question, user: user) }
 
-  scenario 'authenticated user can delete his answer' do
+  scenario 'authenticated user can delete his answer', js: true do
     sign_in(user)
     visit question_path(question)
     click_on 'Delete answer'

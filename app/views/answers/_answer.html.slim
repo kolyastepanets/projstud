@@ -1,3 +1,24 @@
 - if answer.persisted?
-  li= answer.body
-  = link_to 'Delete answer', question_answer_path(@question, answer), method: :delete if answer.user == current_user && signed_in? 
+  .answer id="answer-#{answer.id}"
+    .solution-answer
+      -if answer.is_solution
+        div id="accepted-answer"
+          = image_tag("accepted.jpg", alt: "accepted_answer", :id => "accepted_answer")
+      - else
+        - if @question.user == current_user
+          = link_to 'Mark as solution', mark_solution_answer_path(answer),
+                                        method: :patch, remote: true,
+                                        class: 'solution-link'
+    .answer-stuff
+      p.answer-body
+        = answer.body
+          
+      = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id } if answer.user == current_user
+
+      = form_for [@question, answer], remote: true, html: { id: "edit-answer-#{answer.id}" } do |f|
+        p= f.label :body, "Edit Answer"
+        p= f.text_area :body
+        p= f.submit 'Save'
+      
+      p.delete-answerlink
+        = link_to 'Delete answer', question_answer_path(@question, answer), method: :delete, remote: true if answer.user == current_user

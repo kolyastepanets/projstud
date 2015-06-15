@@ -1,0 +1,27 @@
+// Place all the styles related to the Answers controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.new_answer {
+  margin-left: 70px;
+}
+
+.edit_answer {
+  display: none;
+}
+
+.answer-stuff {
+  vertical-align: top;
+  display: inline-block;
+}
+
+.solution-answer {
+  width: 70px;
+  vertical-align: top;
+  display: inline-block;
+  position: relative;
+}
+
+#accepted_answer {
+  position: absolute;
+  right: 15px;
+}

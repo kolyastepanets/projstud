@@ -1,10 +1,10 @@
 - @question.errors.full_messages.each do |message|
   li= message
 = form_for(@question) do |f| 
-  = f.label :title
-  = f.text_field :title
-  = f.label :body
-  = f.text_area :body
-  = f.submit 'Create'
+  p= f.label :title
+  p= f.text_field :title
+  p= f.label :body
+  p= f.text_area :body
+  p= f.submit 'Create'
 
-  = link_to 'All questions', questions_path
+  p= link_to 'All questions', questions_path

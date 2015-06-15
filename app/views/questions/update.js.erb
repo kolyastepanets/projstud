@@ -1,0 +1,8 @@
+$('.question-title').text('<%= @question.title %>');
+$('.question-body').text('<%= @question.body %>');
+
+$('.edit-question-link').show();
+$('.edit_question').hide();
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

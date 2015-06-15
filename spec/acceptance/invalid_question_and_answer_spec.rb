@@ -25,7 +25,7 @@ feature 'invalid question and answer', %q{
     sign_in(user)
 
     visit question_path(question)
-    fill_in 'Body', with: ''
+    fill_in 'Your Answer', with: ''
     click_on 'Add answer'
 
     expect(page).to have_content "Body can't be blank"

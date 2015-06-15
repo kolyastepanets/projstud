@@ -11,6 +11,22 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
+// function setEqualHeight(columns){
+//   var tallestcolumn = 0;
+//   columns.each(function(){
+//     currentHeight = $(this).height();
+//     if(currentHeight > tallestcolumn){
+//       tallestcolumn = currentHeight;
+//       }
+//   });
+//   columns.height(tallestcolumn);
+// }
+
+// $(document).ready(function() {
+//   setEqualHeight($(".answer > div"));
+// });

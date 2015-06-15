@@ -12,7 +12,7 @@ feature 'user creates answer', %q{
   scenario 'authenticated user creates answer to @question', js: true do
     sign_in(user)
     visit question_path(question)
-    fill_in 'Body', with: 'answer for question'
+    fill_in 'Your Answer', with: 'answer for question'
     click_on 'Add answer'
 
     expect(page).to have_content 'Your answer successfully created.'

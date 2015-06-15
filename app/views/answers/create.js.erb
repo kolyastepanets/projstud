@@ -1,4 +1,7 @@
-$(".answer").append("<%= j render @answer %>");
-$("#answer_body").val("");
+$(".answers").append('<%= j render partial: 'answer', locals: {answer: @answer} %>');
+$(".new_answer #answer_body").val("");
 
-$(".notice_message").html("<%= j render "questions/notice" %>");
+$(".notifications").html("<%= j render partial:"layouts/notice" %>").fadeOut(5000);;
+
+$(document).ready(ready)
+$(document).on('page:load', ready)
