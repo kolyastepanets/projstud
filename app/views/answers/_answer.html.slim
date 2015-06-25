@@ -12,6 +12,14 @@
     .answer-stuff
       p.answer-body
         = answer.body
+
+      - if answer.attachments.any?
+        p Attachments:
+        ul 
+          - answer.attachments.each do |a|
+            li id="attachment-#{a.id}"
+              = link_to a.file.file.filename, a.file.url
+              p= link_to 'Delete File', attachment_path(a), method: :delete, remote: true if answer.user == current_user
           
       = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id } if answer.user == current_user
 

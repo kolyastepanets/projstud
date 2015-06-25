@@ -8,19 +8,6 @@ feature 'invalid question and answer', %q{
   given(:user) { create(:user) }
   given(:question) { create(:question, user: user) }
 
-  scenario 'invalid question' do
-
-    sign_in(user)
-
-    visit questions_path
-    click_on 'Ask question'
-    fill_in 'Title', with: ''
-    fill_in 'Body', with: ''
-    click_on 'Create'
-    
-    expect(page).to have_content "Title can't be blankBody can't be blank"
-  end
-
   scenario 'invalid answer', js: true do
     sign_in(user)
 

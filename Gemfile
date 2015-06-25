@@ -24,8 +24,11 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'slim-rails'
 gem 'devise'
-gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+# gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'jquery-turbolinks'
+gem 'carrierwave'
+gem 'remotipart'
+gem 'cocoon'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
