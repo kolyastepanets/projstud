@@ -13,6 +13,8 @@ html lang="en"
           p 
             = link_to "stackoverflow", root_path
         ul.navbar-links
+          li= link_to 'Main', root_path
+          li= link_to 'Help', help_path
           - if user_signed_in?
             li= link_to "Logout", destroy_user_session_path, :method => :delete 
             li.user-welcome
@@ -28,7 +30,7 @@ html lang="en"
           = link_to image_tag("stackoverflow.jpg"), root_path
         div id="menu"
           ul
-            li= link_to "Questions", root_path
+            li= link_to "Questions", questions_path
             li= link_to "Ask Question", new_question_path
         .notifications
           = render 'layouts/notice'

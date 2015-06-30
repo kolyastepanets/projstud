@@ -1,0 +1,10 @@
+div id="mainbar-question"
+  .header-question
+    h1 Top Questions
+    div id="tabs"
+      li= link_to 'interesting'
+      li= link_to 'featured'
+      li= link_to 'hot'
+      li= link_to 'week'
+      li= link_to 'month'
+  = render partial: 'layouts/question_stuff'

@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
+  root  'static_pages#home'
+  match '/help',    to: 'static_pages#help',    via: 'get'
+  match '/about',   to: 'static_pages#about',   via: 'get'
+
   devise_for :users
   resources :questions do
     resources :answers, only: [:create, :update, :destroy, :set_best]
   end
 
-  root to: "questions#index"
   resources :answers do
     member do
       patch 'mark_solution'

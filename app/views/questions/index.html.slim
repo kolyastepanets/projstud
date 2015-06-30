@@ -1,26 +1,11 @@
 div id="mainbar-question"
   .header-question
-    p All Questions
-  .questions
-    - @questions.each do |question|
-      .question-wrapper id="question-wrapper-#{question.id}"
-        .numbers-stuff
-          ul
-            li votes
-            li answers
-            li view
-        .question-stuff
-          .question-link id="question-#{question.id}"
-            h3 = link_to question.title, question_path(question)
-          .info-about-question
-            p
-              - if question.created_at > Time.zone.now.beginning_of_day
-                |
-                  asked 
-                =' time_ago_in_words(question.created_at)
-                |
-                  ago
-              - else
-                |
-                  asked 
-                =' question.created_at.strftime("%b %d, %Y")
+    h1 All Questions
+    div id="tabs"
+      li= link_to 'newest'
+      li= link_to 'featured'
+      li= link_to 'frequent'
+      li= link_to 'votes'
+      li= link_to 'active'
+      li= link_to 'unanswered'
+  = render partial: 'layouts/question_stuff'
