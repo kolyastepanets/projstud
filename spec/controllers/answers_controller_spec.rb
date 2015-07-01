@@ -2,8 +2,11 @@ require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
   let(:user) { create(:user) }
+  let(:user2) { create(:user) }
   let!(:question) { create(:question, user: user) }
   let!(:answer) { create(:answer, question: question, user: user) }
+  let(:votable) { create(described_class.controller_name.singularize.underscore, question: question, user: user) }
+  let(:vote) { create(:vote, votable: votable, user: user2) }
 
   describe 'POST #create' do
     before { sign_in(user) } 
@@ -82,7 +85,7 @@ RSpec.describe AnswersController, type: :controller do
     end
   end
 
-    describe 'PATCH #mark_solution' do
+  describe 'PATCH #mark_solution' do
     let(:user1){ create(:user) }
     let(:user2){ create(:user) }
     let!(:question){ create(:question, user: user1) }
@@ -117,6 +120,34 @@ RSpec.describe AnswersController, type: :controller do
       patch :mark_solution, id: answer1.id, format: :js
       answer.reload
       expect(answer1.is_solution).to eq false
+    end
+  end
+
+  describe 'POST #vote_up' do
+    before { sign_in(user2) }
+    context 'non-owner of answer' do
+      it 'changes the vote, score 1' do
+        expect { post :vote_up, id: answer, format: :json }.to change(Vote, :count).by(1)
+      end
+    end
+  end
+
+  describe 'POST #vote_down' do
+    before { sign_in(user2) }
+    context 'non-owner of answer' do
+      it 'changes the vote, score -1' do
+        expect { post :vote_down, id: answer, format: :json }.to change(Vote, :count).by(1)
+      end
+    end
+  end
+
+  describe 'DELETE #cancel_vote' do
+    before { sign_in(user2) }
+    before { vote }
+    context 'non-owner of answer' do
+      it 'cancels the vote' do
+        expect { delete :cancel_vote, id: votable, format: :json }.to change(Vote, :count).by(-1)
+      end
     end
   end
 end

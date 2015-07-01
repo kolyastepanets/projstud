@@ -1,8 +1,9 @@
 class Answer < ActiveRecord::Base
+  include Votable
+  include Attachable
+
 	belongs_to :question
   belongs_to :user
-
-  has_many :attachments, dependent: :destroy, as: :attachable
 
   accepts_nested_attributes_for :attachments, reject_if: proc { |attrib| attrib['file'].nil? }
 

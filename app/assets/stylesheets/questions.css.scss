@@ -1,14 +1,31 @@
 // Place all the styles related to the Questions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.question {
+  min-height: 100px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.vote-links {
+  min-height: 10px;
+  width: 50px;
+  margin-right: 20px;
+  vertical-align: top;
+  display: inline-block;
+  position: relative;
+  float: left;
+  margin-bottom: 10px;
+}
+
 .edit_question {
   display: none;
 }
 
-.link-all-questions, .question {
+.link-all-questions {
   margin-left: 70px;
 }
 
-.question {
-  margin-bottom: 70px;
+.total-rating {
+  margin-left: 0.7em;
 }

@@ -8,26 +8,36 @@
 .answer {
   border-bottom: 1px solid #E0E0E0;
   margin-bottom: 30px;
-  min-height: 30px;
+  min-height: 100px;
 }
 
 .edit_answer {
   display: none;
 }
 
-.answer-stuff {
-  vertical-align: top;
-  display: inline-block;
-}
-
-.solution-answer {
-  width: 70px;
-  vertical-align: top;
+.vote-answer-stuff {
   display: inline-block;
   position: relative;
 }
 
-#accepted_answer {
-  position: absolute;
-  right: 15px;
+.vote-answer-links {
+  min-height: 10px;
+  width: 50px;
+  margin-right: 20px;
+  vertical-align: top;
+  margin-bottom: 10px;
+}
+
+.solution-answer {
+  min-height: 30px;
+  width: 50px;
+}
+
+#accepted-answer {
+  min-height: 50px;
+}
+
+.answer-stuff {
+  vertical-align: top;
+  display: inline-block;
 }

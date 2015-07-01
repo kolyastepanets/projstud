@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
   let(:user) { create(:user) }
+  let(:user2) { create(:user) }
   let(:question) { create(:question, user: user) }
+  let(:votable) { create(described_class.controller_name.singularize.underscore) }
+  let(:vote) { create(:vote, votable: votable, user: user2) }
 
   describe 'GET #index' do 
     let(:questions) { create_list(:question, 2, user: user) }
@@ -141,6 +144,34 @@ RSpec.describe QuestionsController, type: :controller do
     it 'redirect to #index' do
       delete :destroy, id: question
       expect(response).to redirect_to questions_path
+    end
+  end
+
+  describe 'POST #vote_up' do
+    before { sign_in(user2) }
+    context 'non-owner of question' do
+      it 'changes the vote, score 1' do
+        expect { post :vote_up, id: question, format: :json }.to change(Vote, :count).by(1)
+      end
+    end
+  end
+
+  describe 'POST #vote_down' do
+    before { sign_in(user2) }
+    context 'non-owner of question' do
+      it 'changes the vote, score -1' do
+        expect { post :vote_down, id: question, format: :json }.to change(Vote, :count).by(1)
+      end
+    end
+  end
+
+  describe 'DELETE #cancel_vote' do
+    before { sign_in(user2) }
+    before { vote }
+    context 'non-owner of question' do
+      it 'cancels the vote' do
+        expect { delete :cancel_vote, id: votable, format: :json }.to change(Vote, :count).by(-1)
+      end
     end
   end
 end

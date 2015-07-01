@@ -5,12 +5,20 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :questions do
-    resources :answers, only: [:create, :update, :destroy, :set_best]
+    resources :answers, only: [:create, :update, :destroy, :vote_up, :vote_down, :cancel_vote]
+    member do
+      post 'vote_up'
+      post 'vote_down'
+      delete 'cancel_vote'
+    end
   end
 
   resources :answers do
     member do
       patch 'mark_solution'
+      post 'vote_up'
+      post 'vote_down'
+      delete 'cancel_vote'
     end
   end
 

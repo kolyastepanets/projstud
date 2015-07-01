@@ -1,14 +1,17 @@
 - if answer.persisted?
   .answer id="answer-#{answer.id}"
-    .solution-answer
-      -if answer.is_solution
-        div id="accepted-answer"
-          = image_tag("accepted.jpg", alt: "accepted_answer", :id => "accepted_answer")
-      - else
-        - if @question.user == current_user
-          = link_to 'Mark as solution', mark_solution_answer_path(answer),
-                                        method: :patch, remote: true,
-                                        class: 'solution-link'
+    .vote-answer-stuff
+      = render 'votes/vote', votable: answer, type: "answer"
+
+      .solution-answer
+        -if answer.is_solution
+          div id="accepted-answer"
+            = image_tag("accepted.jpg", alt: "accepted_answer", :id => "accepted_answer")
+        - else
+          - if @question.user == current_user
+            = link_to 'Mark as solution', mark_solution_answer_path(answer),
+                                          method: :patch, remote: true,
+                                          class: 'solution-link'
     .answer-stuff
       p.answer-body
         = answer.body

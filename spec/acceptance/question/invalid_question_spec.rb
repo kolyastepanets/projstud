@@ -12,7 +12,7 @@ feature 'invalid question and answer', %q{
     sign_in(user)
 
     visit questions_path
-    click_on 'Ask question'
+    click_on 'Ask Question'
     fill_in 'Title', with: ''
     fill_in 'Body', with: ''
     click_on 'Create'
