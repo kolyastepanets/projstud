@@ -2,6 +2,7 @@ doctype html
 html lang="en"
   head
     title Projstud
+    = include_gon
     = csrf_meta_tags
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
@@ -27,7 +28,7 @@ html lang="en"
     .container
       div id="header"
         div id="logo"
-          = link_to image_tag("stackoverflow.jpg"), root_path
+          = image_tag("stackoverflow.jpg")
         div id="menu"
           ul
             li= link_to "Questions", questions_path
@@ -36,6 +37,5 @@ html lang="en"
           = render 'layouts/notice'
       div id="content"
         = yield
-        .sidebar
     .footer
       .footer-wrap

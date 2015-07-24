@@ -1,13 +1,13 @@
 .vote-links id="#{type}-vote-#{votable.id}"
-  div.total-rating
+  div.total-rating id="total-#{type}-rating-#{votable.id}"
     = votable.rating
   - if user_signed_in? && votable.user != current_user
 
     p.cancel-vote style=('display:none' unless votable.vote_exists?(current_user))
-      = link_to 'Cancel Vote', polymorphic_path(votable, action: 'cancel_vote'), class: "link-to-cancel-vote", method: :delete, remote: true
+      = link_to 'Cancel Vote', polymorphic_path(votable, action: 'cancel_vote'), class: "link-to-cancel-vote", method: :delete, remote: true, data: { type: :json }
 
     p.like style=('display:none' if votable.vote_exists?(current_user))
-      = link_to 'Like', polymorphic_path(votable, action: 'vote_up'), class: "link-to-vote", method: :post, remote: true
+      = link_to 'Like', polymorphic_path(votable, action: 'vote_up'), class: "link-to-vote", method: :post, remote: true, data: { type: :json }
   
     p.dislike style=('display:none' if votable.vote_exists?(current_user))
-      = link_to 'Dislike', polymorphic_path(votable, action: 'vote_down'), class: "link-to-vote", method: :post, remote: true
+      = link_to 'Dislike', polymorphic_path(votable, action: 'vote_down'), class: "link-to-vote", method: :post, remote: true, data: { type: :json }

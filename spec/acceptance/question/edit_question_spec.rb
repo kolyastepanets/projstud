@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 feature 'edit question', %q{
-user can edit his created question
-to correct smth
+  user can edit his created question
+  to correct smth
 } do
 
   given!(:user) { create(:user) }
