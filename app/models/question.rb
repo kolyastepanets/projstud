@@ -3,6 +3,7 @@ class Question < ActiveRecord::Base
   include Attachable
 
 	has_many :answers, dependent: :destroy
+  has_many :comments, dependent: :destroy, as: :commentable
 
   belongs_to :user
 	

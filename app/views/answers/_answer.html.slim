@@ -31,5 +31,7 @@
         p= f.text_area :body
         p= f.submit 'Save'
       
-      p.delete-answerlink
+      p.delete-answer-link
         = link_to 'Delete answer', question_answer_path(@question, answer), method: :delete, remote: true if answer.user == current_user
+
+      = render 'comments/comments', commentable: answer, commentable_type: "Answer"

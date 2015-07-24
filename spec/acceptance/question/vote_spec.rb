@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 feature 'vote for question', %q{
-if user liked the question
-he can vote for question
+  if user liked the question
+  he can vote for question
 } do
 
   given!(:user) { create(:user) }

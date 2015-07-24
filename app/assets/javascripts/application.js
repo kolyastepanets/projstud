@@ -11,9 +11,11 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery.remotipart
+//= require private_pub
+//= require handlebars.runtime
+//= require jquery.turbolinks
 //= require cocoon
 //= require turbolinks
 //= require_tree .
