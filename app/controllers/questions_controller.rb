@@ -25,11 +25,14 @@ class QuestionsController < ApplicationController
       @question = Question.new(question_params)
       @question.user = current_user
 
-      if @question.save
-        redirect_to @question
-        flash[:notice] = 'Your question successfully created.'
-      else
-        render :new
+      respond_to do |format|
+        if @question.save
+          format.js
+          flash[:notice] = 'Your question successfully created.'
+        else
+          format.js
+          flash.now[:notice] = "Try again"
+        end
       end
     end
 

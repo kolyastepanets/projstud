@@ -1,0 +1,16 @@
+<% if @comment.errors.any? %>
+  $(".notifications").html("<%= j render partial:"layouts/notice" %>").fadeOut(5000);
+<% else %>
+  <% @question = @comment.commentable_type == 'Question' ? @comment.commentable : @comment.commentable.question %>
+ 
+  <% publish_to "/questions/#{@question.id}/comments" do %>
+    $("#comments_<%= @commentable.class.name %>_<%= @commentable.id %>").append('<%= j render partial: 'comments/comment', locals: {comment: @comment} %>');
+  <% end %>
+  
+  $('form#add-comment-<%= @commentable.id %>-<%= @commentable.class.name %>').hide();
+  $("#comment_content").val("");
+  $(".notifications").html("<%= j render partial:"layouts/notice" %>").fadeOut(5000);
+<% end %>
+
+$(document).ready(ready)
+$(document).on('page:load', ready)

@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .question {
-  min-height: 100px;
+  height: 300px;
   margin-bottom: 30px;
   border-bottom: 1px solid #E0E0E0;
 }
@@ -28,4 +28,15 @@
 
 .total-rating {
   margin-left: 0.7em;
+}
+
+.link-delete-question {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #E0E0E0; 
+  padding-bottom: 10px;
+}
+
+.add-comment a {
+  text-decoration: none;
+  color: #888;
 }

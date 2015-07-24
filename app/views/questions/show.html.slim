@@ -16,7 +16,7 @@
             = link_to a.file.file.filename, a.file.url
             p= link_to 'Delete File', attachment_path(a), method: :delete, remote: true if @question.user == current_user
 
-    - if @question.user == current_user
+    - if @question.user == current_user && user_signed_in?
       = link_to 'Edit', '', class: 'edit-question-link', data: { question_id: @question.id }
 
       = form_for @question, remote: true, html: { id: "edit-question-#{@question.id}" } do |f|
@@ -27,7 +27,9 @@
         p= f.submit 'Save'
 
     p.link-delete-question
-      = link_to 'Delete question', question_path(@question), method: :delete if @question.user == current_user
+      = link_to 'Delete question', question_path(@question), method: :delete if @question.user == current_user && user_signed_in?
+
+    = render 'comments/comments', commentable: @question, commentable_type: 'Question'
 
 .answers
   = render @question.answers
@@ -44,3 +46,6 @@
 
 p.link-all-questions
   = link_to 'All questions', questions_path
+
+= subscribe_to "/questions/#{@question.id}/answers"
+= subscribe_to "/questions/#{@question.id}/comments"
