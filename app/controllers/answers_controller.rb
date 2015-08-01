@@ -1,18 +1,25 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_question, only: [:create, :destroy]
+  before_action :load_question, only: [:create]
   before_action :load_answer, only: [:update, :destroy, :mark_solution]
 
   include Voted 
 
   def create
-    @answer = @question.answers.new(answer_params)
+    @answer = @question.answers.build(answer_params)
     @answer.user = current_user
 
-    if @answer.save
-      flash.now[:notice] = 'Your answer successfully created.'
-    else
-      flash.now[:notice] = "Body can't be blank"
+    respond_to do |format|
+      if @answer.save
+        format.js do
+          PrivatePub.publish_to "/questions/#{@question.id}/answers", answer: @answer.to_json
+          
+          format.json { render json: @answer }
+          flash.now[:notice] = 'Your answer successfully created.'
+        end
+      else
+        flash.now[:notice] = "Body can't be blank"
+      end
     end
   end
 

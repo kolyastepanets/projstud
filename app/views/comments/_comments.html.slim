@@ -8,6 +8,5 @@
     p= f.text_area :content
     p= f.submit 'Add Comment'
 
-  p.all-comments
-    - commentable.comments.each do |comment|
-      = render 'comments/comment', comment: comment
+  - commentable.comments.each do |comment|
+    = render 'comments/comment', comment: comment

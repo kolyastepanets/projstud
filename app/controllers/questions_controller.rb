@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
-    before_action :authenticate_user!, except: [:index, :show]
-    before_action :load_question, only: [:show, :edit, :update, :destroy]
+    before_action :authenticate_user!, except: [:index, :show, :click]
+    before_action :load_question, only: [:show, :edit, :update, :destroy, :click]
     
     include Voted
 
@@ -11,6 +11,8 @@ class QuestionsController < ApplicationController
     def show
       @answer = @question.answers.build
       @answer.attachments.build
+      gon.current_user = user_signed_in? && current_user.id
+      gon.question_author = user_signed_in? && @question.user_id
     end
 
     def new
@@ -45,6 +47,11 @@ class QuestionsController < ApplicationController
       @question.destroy
       redirect_to questions_path
       flash[:notice] = "Your question successfully deleted."
+    end
+
+    def click
+      @question.increment!(:clicks)
+      redirect_to @question
     end
 
     private

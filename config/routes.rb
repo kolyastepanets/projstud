@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       post 'vote_up'
       post 'vote_down'
       delete 'cancel_vote'
+      get 'click'
     end
   end
 

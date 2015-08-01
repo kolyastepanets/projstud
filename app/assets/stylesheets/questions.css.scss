@@ -2,20 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .question {
-  height: 300px;
   margin-bottom: 30px;
   border-bottom: 1px solid #E0E0E0;
+  width: 700px;
+}
+
+.question-show-stuff {
+  display: inline-block;
+  width: 620px;
 }
 
 .vote-links {
-  min-height: 10px;
   width: 50px;
   margin-right: 20px;
   vertical-align: top;
   display: inline-block;
-  position: relative;
-  float: left;
-  margin-bottom: 10px;
 }
 
 .edit_question {

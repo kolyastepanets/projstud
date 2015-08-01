@@ -34,6 +34,8 @@ gem 'faker'
 gem 'populator'
 gem 'private_pub'
 gem 'thin'
+gem 'handlebars_assets'
+gem 'gon'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

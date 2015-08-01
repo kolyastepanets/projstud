@@ -1,7 +1,7 @@
-.question
+.question id = "question-#{@question.id}" data = { question_id: "#{@question.id}" }
   = render 'votes/vote', votable: @question, type: "question"
 
-  .question-stuff
+  .question-show-stuff
     h1.question-title
       = @question.title
 
@@ -28,10 +28,10 @@
 
     p.link-delete-question
       = link_to 'Delete question', question_path(@question), method: :delete if @question.user == current_user && user_signed_in?
-
+  
     = render 'comments/comments', commentable: @question, commentable_type: 'Question'
 
-.answers
+.answers data={question_id: "#{@question.id}"}
   = render @question.answers
 
 = form_for [@question, @answer], remote: true do |f|
@@ -49,3 +49,4 @@ p.link-all-questions
 
 = subscribe_to "/questions/#{@question.id}/answers"
 = subscribe_to "/questions/#{@question.id}/comments"
+= include_gon

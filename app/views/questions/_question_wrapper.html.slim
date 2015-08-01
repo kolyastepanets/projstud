@@ -1,21 +1,25 @@
 .question-wrapper id="question-wrapper-#{@question.id}"
-  .numbers-stuff
-    ul
-      li votes
-      li answers
-      li view
-  .question-stuff
-    .question-link id="question-#{@question.id}"
-      h3 = link_to @question.title, question_path(@question)
-    .info-about-question
-      p
-        - if @question.created_at > Time.zone.now.beginning_of_day
-          |
-            asked 
-          => time_ago_in_words(@question.created_at)
-          |
-            ago
-        - else
-          |
-            asked 
-          => @question.created_at.strftime("%b %d, %Y")
+      .numbers-stuff
+        ul
+          li
+            = render partial: 'questions/question_numbers', locals: {param: @question.votes.count, word: "vote"}
+          li
+            = render partial: 'questions/question_numbers', locals: {param: @question.answers.count, word: "answer"}
+          li
+            = render partial: 'questions/question_numbers', locals: {param: question.clicks, word: "view"}
+
+      .question-stuff
+        .question-link id="question-#{@question.id}"
+          h3 = link_to @question.title, click_question_path(@question)
+        .info-about-question
+          p
+            - if @question.created_at > Time.zone.now.beginning_of_day
+              |
+                asked 
+              => time_ago_in_words(@question.created_at)
+              |
+                ago
+            - else
+              |
+                asked 
+              => @question.created_at.strftime("%b %d, %Y")

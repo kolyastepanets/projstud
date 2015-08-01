@@ -169,4 +169,16 @@ RSpec.describe QuestionsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #click' do
+    it 'increment the clicks' do
+      get :click, id: question
+      expect{Question.increment}.to change{Question.count}.from(0).to(1)
+    end
+
+    it 'renders @question' do
+      get :click, id: question
+      expect(response).to redirect_to question_path(assigns(:question))
+    end
+  end
 end
