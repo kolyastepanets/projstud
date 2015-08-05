@@ -1,5 +1,5 @@
 .vote-links id="#{type}-vote-#{votable.id}"
-  div.total-rating
+  div.total-rating id="total-#{type}-rating-#{votable.id}"
     = votable.rating
   - if user_signed_in? && votable.user != current_user
 

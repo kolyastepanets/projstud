@@ -7,6 +7,8 @@ class CommentsController < ApplicationController
     @comment.user = current_user
 
     if @comment.save
+      PrivatePub.publish_to "/questions/#{question_id}/comments", comment: @comment.to_json
+      render json: @comment
       flash.now[:notice] = 'Your comment successfully created.'
     else
       flash.now[:notice] = "Content can't be blank"
@@ -30,5 +32,9 @@ class CommentsController < ApplicationController
     def load_commentable
       @commentable = commentable_name.classify
       .constantize.find(params["#{commentable_name.singularize}_id".to_sym])
+    end
+
+    def question_id
+      @commentable.has_attribute?(:question_id) ? @commentable.question_id : @commentable.id
     end
 end

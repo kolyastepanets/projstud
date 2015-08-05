@@ -7,6 +7,10 @@
     p= f.label :content, "Your Comment"
     p= f.text_area :content
     p= f.submit 'Add Comment'
+    p= link_to 'cancel comment', '', class: 'cancel-comment'
 
-  - commentable.comments.each do |comment|
-    = render 'comments/comment', comment: comment
+  .comments-list
+    - commentable.comments.each do |comment|
+      - if comment.persisted?
+        p.comment-content id= "comment-#{comment.id}"
+          = comment.content

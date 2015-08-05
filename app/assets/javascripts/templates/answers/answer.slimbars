@@ -1,8 +1,7 @@
 .answer id="answer-{{id}}"
   .vote-answer-stuff
     .vote-links id="answer-vote-{{id}}"
-      div.total-rating
-        p{} {{this.rating}}
+      .total-rating id="total-answer-rating-{{id}}"
 
       |{{#if isSigned}}
       |{{#unless isAnswerAuthor}}
@@ -38,14 +37,13 @@
         |{{/each}}
     |{{/if}}
 
-
     |{{#if isAnswerAuthor }}
     <a class="edit-answer-link" data-answer-id="{{id}}" href="">Edit</a>
     p.delete-answer-link
       <a data-remote="true" rel="nofollow" data-method="delete" href="/answers/{{id}}">Delete answer</a>
     |{{/if}}
 
-    .comments-stuff id= "comments_answer_{{id}}"
+    .comments-stuff id="comments_Answer_{{id}}"
       |{{#if isSigned}}
       p.add-comment
         <a class="add-comment-link" data-commentable-id={{id}} data-commentable-type="Answer" href="">add a comment</a>

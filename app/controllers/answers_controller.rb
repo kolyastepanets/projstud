@@ -9,17 +9,11 @@ class AnswersController < ApplicationController
     @answer = @question.answers.build(answer_params)
     @answer.user = current_user
 
-    respond_to do |format|
-      if @answer.save
-        format.js do
-          PrivatePub.publish_to "/questions/#{@question.id}/answers", answer: @answer.to_json
-          
-          format.json { render json: @answer }
-          flash.now[:notice] = 'Your answer successfully created.'
-        end
-      else
-        flash.now[:notice] = "Body can't be blank"
-      end
+    if @answer.save
+      PrivatePub.publish_to "/questions/#{@question.id}/answers", response: { answer: @answer, rating: @answer.rating, attachments: @answer.attachments }.to_json
+      render json: { answer: @answer, rating: @answer.rating, attachments: @answer.attachments }
+    else
+      flash.now[:notice] = "Body can't be blank"
     end
   end
 

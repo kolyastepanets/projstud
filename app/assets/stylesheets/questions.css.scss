@@ -33,11 +33,15 @@
 
 .link-delete-question {
   margin-bottom: 10px;
-  border-bottom: 1px solid #E0E0E0; 
-  padding-bottom: 10px;
 }
 
 .add-comment a {
+  border-top: 1px solid #E0E0E0; 
   text-decoration: none;
   color: #888;
+}
+
+.cancel-comment {
+  color: #888;
+  text-decoration: none;
 }
