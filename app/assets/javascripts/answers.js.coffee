@@ -23,7 +23,9 @@ ready = ->
     $('.answers').append ->
       HandlebarsTemplates['answers/answer'](answer)
 
-    $commentForm = $('.new_comment').clone()
+    $commentForm = $('.new_comment:first').clone()
+    $commentForm.removeAttr('id')
+    .attr('id',"add-comment-#{answer.id}-Answer")
     .attr('action',"/answers/#{answer.id}/comments")
     $($commentForm).insertAfter("#comments_Answer_#{answer.id} .add-comment-link")
 

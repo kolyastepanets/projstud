@@ -7,6 +7,7 @@ ready = ->
     $(question_id).find('.like').hide()
     $(question_id).find('.dislike').hide()
     $(question_id).find('.cancel-vote').show()
+    console.log(vote.vote_id)
 
   $('.link-to-cancel-vote').bind 'ajax:success', (e, data, status, xhr) ->
     vote = $.parseJSON(xhr.responseText)

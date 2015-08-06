@@ -5,11 +5,14 @@
 
       |{{#if isSigned}}
       |{{#unless isAnswerAuthor}}
-      p.like
-        <a class="link-to-vote" data-remote="true" rel="nofollow" data-method="post" href="/answers/{{id}}/vote_up">Like</a>
-    
-      p.dislike
-        <a class="link-to-vote" data-remote="true" rel="nofollow" data-method="post" href="/answers/{{id}}/vote_down">Dislike</a>
+      p.like style="display:block"
+        <a class="link-to-vote" data-type="json" data-remote="true" rel="nofollow" data-method="post" href="/answers/{{id}}/vote_up">Like</a>
+
+      p.dislike style="display:block"
+        <a class="link-to-vote" data-type="json" data-remote="true" rel="nofollow" data-method="post" href="/answers/{{id}}/vote_down">Dislike</a>
+
+      p.cancel-vote style="display:none"
+        <a class="link-to-cancel-vote" data-type="json" data-remote="true" rel="nofollow" data-method="delete" href="/answers/{{id}}/cancel_vote">Cancel Vote</a>
       |{{/unless}}
       |{{/if}}
 
