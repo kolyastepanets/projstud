@@ -1,7 +1,7 @@
 - @question.errors.full_messages.each do |message|
   li= message
 
-= form_for(@question) do |f| 
+= form_for @question, remote: true do |f| 
   p= f.label :title
   p= f.text_field :title
 

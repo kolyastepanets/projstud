@@ -1,0 +1,11 @@
+<% if @question.errors.present?%>
+  $(".notifications").html("<%= j render partial:"layouts/notice" %>").fadeOut(5000);
+<% else %>
+  $(window.location.replace("/questions/<%= @question.id %>"));
+    <% publish_to "/questions" do %>
+      $('.questions').prepend("<%=  j render partial: "questions/question_wrapper" %>");
+    <% end %>
+<% end %>
+
+$(document).ready(ready)
+$(document).on('page:load', ready)

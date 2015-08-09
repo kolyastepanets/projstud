@@ -7,7 +7,7 @@ feature 'invalid question and answer', %q{
 
   given(:user) { create(:user) }
 
-  scenario 'invalid question' do
+  scenario 'invalid question', js: true do
 
     sign_in(user)
 
@@ -17,6 +17,6 @@ feature 'invalid question and answer', %q{
     fill_in 'Body', with: ''
     click_on 'Create'
     
-    expect(page).to have_content "Title can't be blankBody can't be blank"
+    expect(page).to have_content "Try again"
   end
 end

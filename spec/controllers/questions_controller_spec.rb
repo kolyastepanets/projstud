@@ -73,28 +73,23 @@ RSpec.describe QuestionsController, type: :controller do
 
     context 'with valid atrributes' do
       it 'saves new question' do
-        expect { post :create, question: attributes_for(:question) }.to change(Question, :count).by(1)
+        expect { post :create, question: attributes_for(:question), format: :js }.to change(Question, :count).by(1)
       end
 
       it 'assigns question to user_id' do
-        post :create, user_id: user, question: attributes_for(:question)
+        post :create, user_id: user, question: attributes_for(:question), format: :js
         expect(question.user_id).to eq user.id
       end
 
       it 'redirects to show' do
-        post :create, question: attributes_for(:question)
-        expect(response).to redirect_to question_path(assigns(:question))
+        post :create, question: attributes_for(:question), format: :js
+        expect(response).to be_success
       end
     end
 
     context 'with invalid attributes' do
       it 'does not save question' do
-        expect { post :create, question: attributes_for(:question, :invalid) }.to_not change(Question, :count)       
-      end
-
-      it 'renders #new' do
-        post :create, question: attributes_for(:question, :invalid)
-        expect(response).to render_template :new
+        expect { post :create, question: attributes_for(:question, :invalid), format: :js }.to_not change(Question, :count)       
       end
     end
   end
@@ -172,6 +167,18 @@ RSpec.describe QuestionsController, type: :controller do
       it 'cancels the vote' do
         expect { delete :cancel_vote, id: votable, format: :json }.to change(Vote, :count).by(-1)
       end
+    end
+  end
+
+  describe 'GET #click' do
+    it 'increment the clicks' do
+      get :click, id: question
+      expect{Question.increment}.to change{Question.count}.from(0).to(1)
+    end
+
+    it 'renders @question' do
+      get :click, id: question
+      expect(response).to redirect_to question_path(assigns(:question))
     end
   end
 end

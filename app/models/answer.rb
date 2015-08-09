@@ -4,6 +4,7 @@ class Answer < ActiveRecord::Base
 
 	belongs_to :question
   belongs_to :user
+  has_many :comments, dependent: :destroy, as: :commentable
 
   accepts_nested_attributes_for :attachments, reject_if: proc { |attrib| attrib['file'].nil? }
 

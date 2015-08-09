@@ -1,0 +1,53 @@
+.answer id="answer-{{id}}"
+  .vote-answer-stuff
+    .vote-links id="answer-vote-{{id}}"
+      .total-rating id="total-answer-rating-{{id}}"
+
+      |{{#if isSigned}}
+      |{{#unless isAnswerAuthor}}
+      p.like style="display:block"
+        <a class="link-to-vote" data-type="json" data-remote="true" rel="nofollow" data-method="post" href="/answers/{{id}}/vote_up">Like</a>
+
+      p.dislike style="display:block"
+        <a class="link-to-vote" data-type="json" data-remote="true" rel="nofollow" data-method="post" href="/answers/{{id}}/vote_down">Dislike</a>
+
+      p.cancel-vote style="display:none"
+        <a class="link-to-cancel-vote" data-type="json" data-remote="true" rel="nofollow" data-method="delete" href="/answers/{{id}}/cancel_vote">Cancel Vote</a>
+      |{{/unless}}
+      |{{/if}}
+
+    .solution-answer
+      |{{#if isQuestionAuthor }}
+      a class="solution-link" data-remote="true" rel="nofollow" data-method="patch" href="/answers/{{id}}/mark_solution"
+        | Mark as solution
+      |{{/if}}
+
+  .answer-stuff
+    p.answer-body
+      | {{body}}
+
+    |{{#if attachments}}
+    .attachments
+      p Attachments:
+      ul
+        |{{#each attachments}}
+        li id="attach-{{this.id}}"
+          a href="{{this.file.url}}" {{this.name}}
+          |{{#if ../isAuthor}}
+          a id="delete-attach-{{this.id}}" class="delete-attach-link" data-remote="true" rel="nofollow" data-method="delete" href="/attachments/{{this.id}}"
+            i class="glyphicon glyphicon-remove" Remove
+          |{{/if}}
+        |{{/each}}
+    |{{/if}}
+
+    |{{#if isAnswerAuthor }}
+    <a class="edit-answer-link" data-answer-id="{{id}}" href="">Edit</a>
+    p.delete-answer-link
+      <a data-remote="true" rel="nofollow" data-method="delete" href="/answers/{{id}}">Delete answer</a>
+    |{{/if}}
+
+    .comments-stuff id="comments_Answer_{{id}}"
+      |{{#if isSigned}}
+      p.add-comment
+        <a class="add-comment-link" data-commentable-id={{id}} data-commentable-type="Answer" href="">add a comment</a>
+      |{{/if}}
