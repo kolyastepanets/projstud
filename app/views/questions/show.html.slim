@@ -34,11 +34,11 @@
 .answers
   = render @question.answers
 
-= form_for [@question, @answer], remote: true do |f|
+= form_for [@question, @answer], remote: true, data: { type: :json } do |f|
   p= f.label :body, "Your Answer"
   p= f.text_area :body
 
-  p= f.fields_for :attachments do |a|
+  p= f.fields_for :attachments, @answer.attachments.build do |a|
     = render partial: 'questions/attachment_fields', locals: {f: a}
     p= link_to_add_association 'Add Another File', f, :attachments
         

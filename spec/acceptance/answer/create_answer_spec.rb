@@ -15,7 +15,6 @@ feature 'user creates answer', %q{
     fill_in 'Your Answer', with: 'answer for question'
     click_on 'Add answer'
 
-    expect(page).to have_content 'Your answer successfully created.'
     expect(page).to have_content 'answer for question'
   end
 

@@ -31,7 +31,7 @@ RSpec.describe CommentsController, type: :controller do
         post :create, question_id: question, commentable: 'questions', 
              comment: attributes_for(:comment), format: :js
         
-        expect(response).to render_template("comments/create")
+        expect(response).to be_success
       end
     end
 
@@ -49,7 +49,7 @@ RSpec.describe CommentsController, type: :controller do
         post :create, question_id: question, commentable: 'questions', 
              comment: attributes_for(:comment, :invalid), format: :js
         
-        expect(response).to render_template("comments/create")
+        expect(response).to_not be_success
       end
     end
 
@@ -76,7 +76,7 @@ RSpec.describe CommentsController, type: :controller do
         post :create, answer_id: answer, commentable: 'answers', 
              comment: attributes_for(:comment), format: :js
         
-        expect(response).to render_template("comments/create")
+        expect(response).to be_success
       end
     end
 
@@ -94,7 +94,7 @@ RSpec.describe CommentsController, type: :controller do
         post :create, answer_id: answer, commentable: 'answers', 
              comment: attributes_for(:comment, :invalid), format: :js
         
-        expect(response).to render_template("comments/create")
+        expect(response).to_not be_success
       end
     end
   end
