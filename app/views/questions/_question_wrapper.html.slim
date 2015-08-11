@@ -6,7 +6,7 @@
           li
             = render partial: 'questions/question_numbers', locals: {param: @question.answers.count, word: "answer"}
           li
-            = render partial: 'questions/question_numbers', locals: {param: question.clicks, word: "view"}
+            = render partial: 'questions/question_numbers', locals: {param: @question.clicks, word: "view"}
 
       .question-stuff
         .question-link id="question-#{@question.id}"

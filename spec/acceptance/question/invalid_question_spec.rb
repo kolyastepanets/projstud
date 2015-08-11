@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-feature 'invalid question and answer', %q{
-  user can not create question and answer
+feature 'invalid question', %q{
+  user can not create question
   with invalid data
 } do
 

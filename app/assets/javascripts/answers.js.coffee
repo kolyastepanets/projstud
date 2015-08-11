@@ -29,9 +29,8 @@ ready = ->
     .attr('action',"/answers/#{answer.id}/comments")
     $($commentForm).insertAfter("#comments_Answer_#{answer.id} .add-comment-link")
 
-    $editForm = $('#new_answer').clone();
-    $editForm.removeClass('new_answer').addClass('edit_answer')
-    .attr('action',"/answers/#{answer.id}")
+    $editForm = $('.edit_answer:first').clone();
+    $editForm.attr('action',"/answers/#{answer.id}")
     .attr('id',"edit-answer-#{answer.id}")
     .html('<input name="utf8" type="hidden" value="✓">' +
         '<input type="hidden" name="_method" value="patch">' +
@@ -46,6 +45,21 @@ ready = ->
     add_answer(response) if !$("#answer-#{response.answer.id}").length
     $("form.new_answer #answer_body").val("");
     $("#total-answer-rating-#{response.answer.id}").html(response.rating);
+  .on 'ajax:error', (e, xhr, status, error) ->
+    response = $.parseJSON(xhr.responseText)
+
+    $form = $('#new_answer')
+    $errors = $form.children('.error_explanation')
+    errorsHtml = HandlebarsTemplates['errors/errors'](response)
+
+    if $errors.length
+      $errors.html(errorsHtml)
+    else
+      $form.prepend(errorsHtml)
+      $errors = $form.children('.error_explanation')
+
+    $errors.stop().css( {opacity: 1} ).fadeOut 5000, ->
+        $(this).remove()
 
   questionId = $('.question').data('questionId')
   PrivatePub.subscribe "/questions/" + questionId + "/answers", (data, channel) ->

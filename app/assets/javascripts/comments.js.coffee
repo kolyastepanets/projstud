@@ -23,6 +23,21 @@ ready = ->
     add_comment(response)
     $('textarea#comment_content').val("")
     $(this).hide()
+  .on 'ajax:error', (e, xhr, status, error) ->
+    response = $.parseJSON(xhr.responseText)
+
+    $form = $(this).closest('form')
+    $errors = $form.children('.error_explanation')
+    errorsHtml = HandlebarsTemplates['errors/errors'](response)
+
+    if $errors.length
+      $errors.html(errorsHtml)
+    else
+      $form.prepend(errorsHtml)
+      $errors = $form.children('.error_explanation')
+
+    $errors.stop().css( {opacity: 1} ).fadeOut 5000, ->
+        $(this).remove()
 
   questionId = $('.question').data('questionId')
   PrivatePub.subscribe "/questions/" + questionId + "/comments", (data, channel) ->
