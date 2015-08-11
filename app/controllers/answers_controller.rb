@@ -2,35 +2,36 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :load_question, only: [:create]
   before_action :load_answer, only: [:update, :destroy, :mark_solution]
+  before_action :set_answer, only: [:update, :mark_solution]
+  after_action :publish_answer, only: :create
 
   include Voted 
 
+  respond_to :js, only: [:update, :destroy, :mark_solution]
+  respond_to :json, only: [:create]
+
   def create
-    @answer = @question.answers.build(answer_params)
-    @answer.user = current_user
+    @answer = @question.answers.create(answer_params.merge(user: current_user))
 
     if @answer.save
-      PrivatePub.publish_to "/questions/#{@question.id}/answers", response: { answer: @answer, rating: @answer.rating, attachments: @answer.attachments }.to_json
       render json: { answer: @answer, rating: @answer.rating, attachments: @answer.attachments }
     else
-      flash.now[:notice] = "Body can't be blank"
+      render json: { errors: @answer.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   def update
     @answer.update(answer_params)
-    @question = @answer.question
     @answer.user = current_user
+    respond_with(@answer)
   end
 
   def destroy
-    @answer.destroy
-    flash.now[:notice] = "Your answer successfully deleted."
+    respond_with(@answer.destroy)
   end
 
   def mark_solution
-    @question = @answer.question
-    @answer.mark_solution
+    respond_with(@answer.mark_solution)
   end
 
   private
@@ -41,6 +42,16 @@ class AnswersController < ApplicationController
 
     def load_answer
       @answer = Answer.find(params[:id])
+    end
+
+    def set_answer
+      @question = @answer.question
+    end
+
+    def publish_answer
+      PrivatePub.publish_to "/questions/#{@question.id}/answers", 
+        response: { answer: @answer, rating: @answer.rating, 
+                    attachments: @answer.attachments }.to_json if @answer.valid?
     end
       
     def answer_params

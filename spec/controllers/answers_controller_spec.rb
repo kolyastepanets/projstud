@@ -25,7 +25,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'redirects to show @question' do
         post :create, question_id: question, answer: attributes_for(:answer), format: :js
-        expect(response).to render_template("answers/create")
+        expect(response).to be_success
       end
     end
 
@@ -36,7 +36,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'redirect to @question' do
         post :create, question_id: question, answer: attributes_for(:answer, :invalid), format: :js
-        expect(response).to render_template("answers/create")
+        expect(response.status).to eq(422)
       end
     end
   end

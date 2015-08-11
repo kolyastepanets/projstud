@@ -11,15 +11,11 @@ class CommentsController < ApplicationController
       render json: @comment
       flash.now[:notice] = 'Your comment successfully created.'
     else
-      flash.now[:notice] = "Content can't be blank"
+      render json: { errors: @comment.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   private
-
-    def load_question
-      @question = Question.find(params[:question_id])
-    end
 
     def commentable_name
       params[:commentable]

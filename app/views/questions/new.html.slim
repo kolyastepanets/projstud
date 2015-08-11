@@ -9,7 +9,7 @@
   p= f.text_area :body
 
   p Attachments:
-  p= f.fields_for :attachments do |a|
+  p= f.fields_for :attachments, @question.attachments.build do |a|
     = render partial: 'questions/attachment_fields', locals: {f: a}
     p= link_to_add_association 'Add Another File', f, :attachments
 
