@@ -6,7 +6,7 @@
           li
             = render partial: 'questions/question_numbers', locals: {param: @question.answers.count, word: "answer"}
           li
-            = render partial: 'questions/question_numbers', locals: {param: question.clicks, word: "view"}
+            = render partial: 'questions/question_numbers', locals: {param: @question.clicks, word: "view"}
 
       .question-stuff
         .question-link id="question-#{@question.id}"
@@ -15,11 +15,11 @@
           p
             - if @question.created_at > Time.zone.now.beginning_of_day
               |
-                asked 
+                asked
               => time_ago_in_words(@question.created_at)
               |
                 ago
             - else
               |
-                asked 
+                asked
               => @question.created_at.strftime("%b %d, %Y")

@@ -10,7 +10,7 @@
 
     - if @question.attachments.any?
       p Attachments:
-      ul 
+      ul
         - @question.attachments.each do |a|
           li id="attachment-#{a.id}"
             = link_to a.file.file.filename, a.file.url
@@ -28,20 +28,20 @@
 
     p.link-delete-question
       = link_to 'Delete question', question_path(@question), method: :delete if @question.user == current_user && user_signed_in?
-  
+
     = render 'comments/comments', commentable: @question, commentable_type: 'Question'
 
 .answers
   = render @question.answers
 
-= form_for [@question, @answer], remote: true do |f|
+= form_for [@question, @answer], remote: true, data: { type: :json } do |f|
   p= f.label :body, "Your Answer"
   p= f.text_area :body
 
-  p= f.fields_for :attachments do |a|
+  p= f.fields_for :attachments, @answer.attachments.build do |a|
     = render partial: 'questions/attachment_fields', locals: {f: a}
     p= link_to_add_association 'Add Another File', f, :attachments
-        
+
   p= f.submit 'Add answer'
 
 p.link-all-questions

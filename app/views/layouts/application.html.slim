@@ -6,21 +6,21 @@ html lang="en"
     = csrf_meta_tags
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
-   
+
   body
     .topnavbar.
       .navbar
         .logo
-          p 
+          p
             = link_to "stackoverflow", root_path
         ul.navbar-links
           li= link_to 'Main', root_path
           li= link_to 'Help', help_path
           - if user_signed_in?
-            li= link_to "Log out", destroy_user_session_path, :method => :delete 
+            li= link_to "Log out", destroy_user_session_path, :method => :delete
             li.user-welcome
               |
-                Welcome, 
+                Welcome,
               = current_user.email
           - else
             li= link_to('Login', new_user_session_path)

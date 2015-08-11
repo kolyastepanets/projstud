@@ -28,10 +28,6 @@ RSpec.describe QuestionsController, type: :controller do
       expect(assigns(:question)).to eq question
     end
 
-    it 'builds new attachment for answer' do
-      expect(assigns(:answer).attachments.first).to be_a_new(Attachment)
-    end
-
     it 'renders show view' do
       expect(response).to render_template :show
     end
@@ -43,10 +39,6 @@ RSpec.describe QuestionsController, type: :controller do
     before { get :new }
     it 'creates new question' do
       expect(assigns(:question)).to be_a_new(Question)
-    end
-
-    it 'builds new attachment for question' do
-      expect(assigns(:question).attachments.first).to be_a_new(Attachment)
     end
 
     it 'renders #new' do
@@ -172,8 +164,7 @@ RSpec.describe QuestionsController, type: :controller do
 
   describe 'GET #click' do
     it 'increment the clicks' do
-      get :click, id: question
-      expect{Question.increment}.to change{Question.count}.from(0).to(1)
+      expect{ get :click, id: question }.to change{Question.count}.from(0).to(1)
     end
 
     it 'renders @question' do

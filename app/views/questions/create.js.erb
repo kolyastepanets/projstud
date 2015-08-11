@@ -5,6 +5,7 @@
     <% publish_to "/questions" do %>
       $('.questions').prepend("<%=  j render partial: "questions/question_wrapper" %>");
     <% end %>
+    $(".notifications").html("<%= j render partial:"layouts/notice" %>").fadeOut(5000);
 <% end %>
 
 $(document).ready(ready)

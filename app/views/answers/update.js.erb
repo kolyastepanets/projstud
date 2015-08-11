@@ -1,9 +1,10 @@
-var $answer = $('#answer-' + <%= @answer.id %>);
+var $answer = $('#answer-<%= @answer.id %>');
 var $answer_body = $answer.children('.answer-stuff');
 $answer_body.children('.answer-body').text('<%= @answer.body %>');
 
 $('.edit-answer-link').show();
-$('.edit_answer').hide();
+$('form#edit-answer-<%= @answer.id %>').hide();
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
+$(document).on('page:update', ready)

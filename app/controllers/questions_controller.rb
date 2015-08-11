@@ -1,52 +1,40 @@
 class QuestionsController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show, :click]
     before_action :load_question, only: [:show, :edit, :update, :destroy, :click]
-    
+    before_action :check_authority, only: [:update, :destroy]
+    before_action :build_answer, only: :show
+    before_action :gon_current_user, only: :show
+
     include Voted
 
+    respond_to :js, only: :create
+    respond_to :html
+
     def index
-      @questions = Question.all.paginate(page: params[:page])
+      respond_with(@questions = Question.all.paginate(page: params[:page]))
     end
 
     def show
-      @answer = @question.answers.build
-      @answer.attachments.build
-      gon.current_user = user_signed_in? && current_user.id
-      gon.question_author = user_signed_in? && @question.user_id
+      respond_with @question
     end
 
     def new
-      @question = Question.new
-      @question.attachments.build
+      respond_with(@question = Question.new)
     end
 
     def edit
     end
 
     def create
-      @question = Question.new(question_params)
-      @question.user = current_user
-
-      respond_to do |format|
-        if @question.save
-          format.js
-          flash[:notice] = 'Your question successfully created.'
-        else
-          format.js
-          flash.now[:notice] = "Try again"
-        end
-      end
+      respond_with(@question = current_user.questions.create(question_params))
     end
 
     def update
       @question.update(question_params)
-      @question.user = current_user
     end
 
     def destroy
-      @question.destroy
-      redirect_to questions_path
-      flash[:notice] = "Your question successfully deleted."
+      respond_with(@question.destroy)
     end
 
     def click
@@ -62,5 +50,20 @@ class QuestionsController < ApplicationController
 
       def question_params
         params.require(:question).permit(:title, :body, attachments_attributes: [:file, :id, :_destroy])
+      end
+
+      def check_authority
+        @question.user = current_user
+      end
+
+      def build_answer
+        @answer = @question.answers.build
+      end
+
+      def gon_current_user
+        if user_signed_in?
+          gon.current_user = current_user.id
+          gon.question_author =  @question.user_id
+        end
       end
 end

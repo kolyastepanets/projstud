@@ -21,7 +21,6 @@ feature 'create comment', %q{
       click_on 'Add Comment'
     end
           
-    expect(page).to have_content "Your comment successfully created."
     expect(page).to have_content 'Test content'
   end
 

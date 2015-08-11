@@ -2,7 +2,7 @@
   - if user_signed_in?
     p.add-comment
       = link_to 'add a comment', '', class: 'add-comment-link', data: { commentable_id: commentable.id, commentable_type: commentable_type }
-  
+
   = form_for [commentable, Comment.new], remote: true, html: { id: "add-comment-#{commentable.id}-#{commentable_type}" } do |f|
     p= f.label :content, "Your Comment"
     p= f.text_area :content
