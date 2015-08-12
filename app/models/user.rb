@@ -5,7 +5,36 @@ class User < ActiveRecord::Base
   has_many :answers, dependent: :destroy
   has_many :votes, dependent: :destroy, as: :votable
   has_many :comments, dependent: :destroy, as: :commentable
+  has_many :authorizations, dependent: :destroy
 
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :registerable, :confirmable,
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, omniauth_providers: [:facebook, :twitter]
+
+  def self.find_for_oauth(auth)
+    authorization = Authorization.where(provider: auth.provider, uid: auth.uid).first
+    return authorization.user if authorization
+
+    email = auth.info.try(:email)
+    if email
+      user = User.where(email: email).first
+    else
+      return nil
+    end
+
+    if user
+      user.authorizations.create(provider: auth.provider, uid: auth.uid)
+    else
+      user = generate_user(email)
+      user.save
+      user.authorizations.create(provider: auth.provider, uid: auth.uid)
+    end
+    user
+  end
+
+  def self.generate_user(email)
+    password = Devise.friendly_token[0, 20]
+    user = User.new(email: email, password: password, password_confirmation: password)
+    user
+  end
 end

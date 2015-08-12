@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   match '/help',    to: 'static_pages#help',    via: 'get'
   match '/about',   to: 'static_pages#about',   via: 'get'
 
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   resources :questions do
     resources :answers, only: [:create, :update, :destroy, :vote_up, :vote_down, :cancel_vote]
     resources :comments, :defaults => { :commentable => 'question' }
@@ -26,6 +26,11 @@ Rails.application.routes.draw do
   end
 
   resources :attachments
+
+  devise_scope :user do
+    post 'email_confirmation', to: 'omniauth_callbacks#email_confirmation'
+    post 'confirm', to: 'omniauth_callbacks#confirm'
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

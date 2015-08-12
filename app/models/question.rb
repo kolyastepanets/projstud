@@ -6,7 +6,7 @@ class Question < ActiveRecord::Base
   has_many :comments, dependent: :destroy, as: :commentable
 
   belongs_to :user
-	
+
   validates :title, :body, :user_id, presence: true
 	validates :title, length: { maximum: 50 }
 

@@ -3,6 +3,7 @@ ENV['RAILS_ENV'] ||= 'test'
 require 'spec_helper'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
+require 'capybara/email/rspec'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -29,6 +30,7 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
   config.extend ControllerMacros, type: :controller
   config.include AcceptanceHelper, type: :feature
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -53,7 +55,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   Capybara.javascript_driver = :webkit
-  
+
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
@@ -61,7 +63,7 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
   end
-  
+
   config.before(:each, js: true) do
     DatabaseCleaner.strategy = :truncation
   end
@@ -74,3 +76,5 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 end
+
+OmniAuth.config.test_mode = true

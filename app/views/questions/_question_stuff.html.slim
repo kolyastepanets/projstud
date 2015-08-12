@@ -17,13 +17,13 @@
           p
             - if question.created_at > Time.zone.now.beginning_of_day
               |
-                asked
+                asked 
               => time_ago_in_words(question.created_at)
               |
                 ago
             - else
               |
-                asked
+                asked 
               => question.created_at.strftime("%b %d, %Y")
   = will_paginate @questions
 = subscribe_to "/questions"
