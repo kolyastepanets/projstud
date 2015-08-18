@@ -1,5 +1,5 @@
 .comments-stuff id= "comments_#{commentable_type}_#{commentable.id}"
-  - if user_signed_in?
+  - if can?(:create, Comment)
     p.add-comment
       = link_to 'add a comment', '', class: 'add-comment-link', data: { commentable_id: commentable.id, commentable_type: commentable_type }
 

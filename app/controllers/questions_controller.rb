@@ -10,6 +10,8 @@ class QuestionsController < ApplicationController
     respond_to :js, only: :create
     respond_to :html
 
+    authorize_resource
+
     def index
       respond_with(@questions = Question.all.paginate(page: params[:page]))
     end

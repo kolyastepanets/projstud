@@ -5,7 +5,7 @@ feature 'create comment', %q{
   or ask additional info
   as an authenticated user
   i want to able to create comment
-} do 
+} do
 
   given(:user) { create(:user) }
   given(:question) { create(:question, user: user) }
@@ -17,7 +17,7 @@ feature 'create comment', %q{
     click_on 'add a comment'
     fill_in 'Your Comment', with: 'Test content'
     click_on 'Add Comment'
-    
+
     expect(page).to have_content 'Test content'
   end
 
@@ -28,7 +28,7 @@ feature 'create comment', %q{
     click_on 'add a comment'
     fill_in 'Your Comment', with: ''
     click_on 'Add Comment'
-    
+
     expect(page).to have_content "Content can't be blank"
   end
 
