@@ -27,6 +27,8 @@ class Ability
 
     alias_action :create, :read, :update, :destroy, :to => :crud
     can :crud, [Question, Answer], user: user
+    can :me, User, id: user.id
+    can :index, User
 
     can :create, Comment
 
