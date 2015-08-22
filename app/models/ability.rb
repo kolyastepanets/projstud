@@ -29,6 +29,7 @@ class Ability
     can :crud, [Question, Answer], user: user
     can :me, User, id: user.id
     can :index, User
+    can :create, [:question, :answer]
 
     can :create, Comment
 
