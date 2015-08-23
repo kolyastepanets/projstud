@@ -8,8 +8,10 @@ RSpec.describe AnswersController, type: :controller do
   let(:votable) { create(described_class.controller_name.singularize.underscore, question: question, user: user) }
   let(:vote) { create(:vote, votable: votable, user: user2) }
 
+  it_behaves_like "Voting"
+
   describe 'POST #create' do
-    before { sign_in(user) } 
+    before { sign_in(user) }
 
     context 'with valid atrributes' do
       it 'saves new answer with question_id' do
@@ -44,7 +46,7 @@ RSpec.describe AnswersController, type: :controller do
   describe 'PATCH #update' do
 
     before { sign_in(user) }
-    
+
     it 'assigns requested answer to @answer' do
       patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
       expect(assigns(:answer)).to eq answer
@@ -74,7 +76,7 @@ RSpec.describe AnswersController, type: :controller do
 
     before { answer }
     before { sign_in(user) }
-    
+
       it 'deletes answer' do
         expect { delete :destroy, question_id: question, id: answer, format: :js }.to change(Answer, :count).by(-1)
       end
@@ -120,34 +122,6 @@ RSpec.describe AnswersController, type: :controller do
       patch :mark_solution, id: answer1.id, format: :js
       answer.reload
       expect(answer1.is_solution).to eq false
-    end
-  end
-
-  describe 'POST #vote_up' do
-    before { sign_in(user2) }
-    context 'non-owner of answer' do
-      it 'changes the vote, score 1' do
-        expect { post :vote_up, id: answer, format: :json }.to change(Vote, :count).by(1)
-      end
-    end
-  end
-
-  describe 'POST #vote_down' do
-    before { sign_in(user2) }
-    context 'non-owner of answer' do
-      it 'changes the vote, score -1' do
-        expect { post :vote_down, id: answer, format: :json }.to change(Vote, :count).by(1)
-      end
-    end
-  end
-
-  describe 'DELETE #cancel_vote' do
-    before { sign_in(user2) }
-    before { vote }
-    context 'non-owner of answer' do
-      it 'cancels the vote' do
-        expect { delete :cancel_vote, id: votable, format: :json }.to change(Vote, :count).by(-1)
-      end
     end
   end
 end
