@@ -43,6 +43,10 @@ gem 'omniauth-twitter'
 gem 'cancancan'
 gem 'doorkeeper'
 gem 'active_model_serializers'
+gem 'sidekiq'
+gem 'whenever'
+gem 'sidetiq'
+gem 'sinatra', '>= 1.3.0', require: nil
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

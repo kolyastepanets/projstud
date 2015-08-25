@@ -33,6 +33,8 @@ class Ability
 
     can :create, Comment
 
+    can :create, Subscription
+
     can :click, Question
     can :destroy, Attachment do |attachment|
       attachment.attachable.user_id == user.id

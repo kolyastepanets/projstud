@@ -4,6 +4,7 @@ class Question < ActiveRecord::Base
 
 	has_many :answers, dependent: :destroy
   has_many :comments, dependent: :destroy, as: :commentable
+  has_many :subscriptions, dependent: :destroy
 
   belongs_to :user
 
@@ -12,5 +13,11 @@ class Question < ActiveRecord::Base
 
   default_scope { order('created_at DESC') }
 
+  after_create :subscribe_author
+
   accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
+
+  def subscribe_author
+    Subscription.create(question: self, user: user)
+  end
 end

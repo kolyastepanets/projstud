@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :votes, dependent: :destroy, as: :votable
   has_many :comments, dependent: :destroy, as: :commentable
   has_many :authorizations, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
 
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
@@ -36,5 +37,11 @@ class User < ActiveRecord::Base
     password = Devise.friendly_token[0, 20]
     user = User.new(email: email, password: password, password_confirmation: password)
     user
+  end
+
+  def self.send_daily_digest
+    find_each.each do |user|
+      DailyMailer.digest(user).deliver_later
+    end
   end
 end

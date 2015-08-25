@@ -29,6 +29,11 @@
       p.link-delete-question
         = link_to 'Delete question', question_path(@question), method: :delete
 
+    .subscription
+      - if can?(:create, Subscription.new(question: @question))
+        .subscribe
+          p =link_to 'Subscribe', question_subscriptions_path(@question), class: "subscribe", method: :post, remote: true
+
     = render 'comments/comments', commentable: @question, commentable_type: 'Question'
 
 .answers
