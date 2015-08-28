@@ -18,6 +18,6 @@ class Question < ActiveRecord::Base
   accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
 
   def subscribe_author
-    Subscription.create(question: self, user: user)
+    subscriptions.create(user: user)
   end
 end

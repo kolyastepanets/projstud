@@ -1,6 +1,6 @@
 class SubscriptionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_question
+  before_action :load_question, only: :create
 
   respond_to :js
 
