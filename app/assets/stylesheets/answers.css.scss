@@ -12,6 +12,11 @@
   width: 700px;
 }
 
+.answer-body {
+  width: 600px;
+  margin-bottom: 15px;
+}
+
 .edit_answer {
   display: none;
 }
@@ -44,6 +49,13 @@
 }
 
 .delete-answer-link {
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.count-answers {
   border-bottom: 1px solid #E0E0E0;
+  font-size: 18px;
+  margin-bottom: 15px;
   padding-bottom: 5px;
 }

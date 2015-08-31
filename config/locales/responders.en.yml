@@ -13,7 +13,7 @@ en:
     questions:
       create:
         notice: 'Your question successfully created.'
-        alert: 'Try again'
+        alert: 'Content can not be blank'
       destroy:
         notice: 'Your question successfully deleted.'
     comments:

@@ -1,16 +1,16 @@
 .comments-stuff id= "comments_#{commentable_type}_#{commentable.id}"
-  - if can?(:create, Comment)
-    p.add-comment
-      = link_to 'add a comment', '', class: 'add-comment-link', data: { commentable_id: commentable.id, commentable_type: commentable_type }
-
-  = form_for [commentable, Comment.new], remote: true, html: { id: "add-comment-#{commentable.id}-#{commentable_type}" } do |f|
-    p= f.label :content, "Your Comment"
-    p= f.text_area :content
-    p= f.submit 'Add Comment'
-    p= link_to 'cancel comment', '', class: 'cancel-comment'
-
   .comments-list
     - commentable.comments.each do |comment|
       - if comment.persisted?
         p.comment-content id= "comment-#{comment.id}"
           = comment.content
+
+- if can?(:create, Comment)
+  p.add-comment
+    = link_to 'add a comment', '', class: 'add-comment-link', data: { commentable_id: commentable.id, commentable_type: commentable_type }
+
+= form_for [commentable, Comment.new], remote: true, html: { id: "add-comment-#{commentable.id}-#{commentable_type}" } do |f|
+  p= f.label :content, "Your Comment"
+  p= f.text_area :content
+  p= f.submit 'Add Comment'
+  p= link_to 'cancel comment', '', class: 'cancel-comment'

@@ -32,10 +32,27 @@
         = form_for [@question, answer], remote: true, html: { id: "edit-answer-#{answer.id}" } do |f|
           p= f.label :body, "Edit Answer"
           p= f.text_area :body
+          .answer-errors
           p.save-edit-answer
             = f.submit 'Save'
 
         p.delete-answer-link
           = link_to 'Delete answer', question_answer_path(@question, answer), method: :delete, remote: true
+
+      .user-info
+        .user-stuff-answer
+          p.time
+            - if answer.created_at > Time.zone.now.beginning_of_day
+              |
+                answered 
+              => time_ago_in_words(answer.created_at)
+              |
+                ago
+            - else
+              |
+                answered 
+              => answer.created_at.strftime("%b %d '%y at %H:%M")
+          p.user
+            = answer.user.email
 
       = render 'comments/comments', commentable: answer, commentable_type: "Answer"

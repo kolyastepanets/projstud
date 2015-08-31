@@ -1,5 +1,7 @@
-<% if @question.errors.present?%>
-  $(".notifications").html("<%= j render partial:"layouts/notice" %>").fadeOut(5000);
+<% if @question.errors.present? %>
+  <% @question.errors.full_messages.each do |message| %>
+    $('.question-errors').html('<%= j message %>');
+  <% end %>
 <% else %>
   $(window.location.replace("/questions/<%= @question.id %>"));
     <% publish_to "/questions" do %>
@@ -7,6 +9,3 @@
     <% end %>
     $(".notifications").html("<%= j render partial:"layouts/notice" %>").fadeOut(5000);
 <% end %>
-
-$(document).ready(ready)
-$(document).on('page:load', ready)

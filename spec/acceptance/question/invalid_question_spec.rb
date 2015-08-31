@@ -16,7 +16,7 @@ feature 'invalid question', %q{
     fill_in 'Title', with: ''
     fill_in 'Body', with: ''
     click_on 'Create'
-    
-    expect(page).to have_content "Try again"
+
+    expect(page).to have_content "Body can't be blank"
   end
 end

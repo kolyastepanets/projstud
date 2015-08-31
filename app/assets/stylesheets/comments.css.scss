@@ -6,6 +6,24 @@
   padding: 5px 0 5px 10px;
 }
 
+.comments-stuff {
+  border-top: 1px solid #E0E0E0;
+}
+
+.add-comment {
+  margin: 10px 0;
+}
+
+.add-comment a {
+  text-decoration: none;
+  color: #888;
+}
+
+.cancel-comment {
+  color: #888;
+  text-decoration: none;
+}
+
 .new_comment {
   display: none;
 }

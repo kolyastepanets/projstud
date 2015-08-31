@@ -7,16 +7,32 @@
   width: 700px;
 }
 
+.title {
+  height: 40px;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.question-title {
+  width: 400px;
+  float: left;
+}
+
+.subscription {
+  float: right;
+}
+
 .question-show-stuff {
   display: inline-block;
   width: 620px;
+  margin: 20px 0;
 }
 
 .vote-links {
-  width: 50px;
-  margin-right: 20px;
+  width: 40px;
+  margin: 20px 20px 0 10px;
   vertical-align: top;
   display: inline-block;
+  float: left;
 }
 
 .edit_question {
@@ -35,13 +51,11 @@
   margin-bottom: 10px;
 }
 
-.add-comment a {
-  border-top: 1px solid #E0E0E0; 
-  text-decoration: none;
-  color: #888;
+.question-title {
+  font-size: 25px;
+  margin-bottom: 20px;
 }
 
-.cancel-comment {
-  color: #888;
-  text-decoration: none;
+.question-body {
+  margin-bottom: 15px;
 }

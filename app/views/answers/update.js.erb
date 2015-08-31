@@ -1,10 +1,10 @@
-var $answer = $('#answer-<%= @answer.id %>');
-var $answer_body = $answer.children('.answer-stuff');
-$answer_body.children('.answer-body').text('<%= @answer.body %>');
-
-$('.edit-answer-link').show();
-$('form#edit-answer-<%= @answer.id %>').hide();
-
-$(document).ready(ready)
-$(document).on('page:load', ready)
-$(document).on('page:update', ready)
+<% if @answer.errors.present? %>
+  <% @answer.errors.full_messages.each do |message| %>
+    $('.answer-errors').html('<%= j message %>');
+  <% end %>
+<% else %>
+  $('#answer-<%= @answer.id %>').replaceWith("<%= j render @answer, locals: {answer: @answer} %>");
+  $('.edit-answer-link').show();
+  answer_id = $(this).data('answerId');
+  $('form#edit-answer-' + answer_id).hide();
+<% end %>

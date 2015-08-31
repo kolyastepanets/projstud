@@ -60,10 +60,14 @@ body {
   color: white;
 }
 
-.navbar-links {
-  margin: 0;
+.right-block {
+  height: 100%;
   float: right;
-  right: 100px;
+}
+
+.navbar-links {
+  float: left;
+  margin-right: 5px;
 }
 
 .navbar-links li {
@@ -83,12 +87,23 @@ body {
   height: 100%;
 }
 
-// .user-welcome {
-//   font-size: 13px;
-// }
+.user-welcome {
+  font-size: 13px;
+}
 
 .navbar-links li a:hover {
   background-color: #444;
+}
+
+.form-inline {
+  width: 270px;
+  float: right;
+  margin-top: 6px;
+}
+
+input#query.form-control {
+  width: 170px;
+  height: 13px;
 }
 
 .container {
@@ -108,7 +123,7 @@ body {
 }
 
 #logo {
-  padding-top: 15px; 
+  padding-top: 15px;
   float: left;
 }
 
@@ -270,7 +285,6 @@ body {
 }
 
 .info-about-question p {
-  margin: 13px 0 13px 0;
 }
 
 .footer {
@@ -284,3 +298,15 @@ body {
   min-height: 300px;
 }
 
+.panel-body {
+  margin-bottom: 10px;
+}
+
+textarea {
+  width: 620px;
+  height: 100px;
+}
+
+.time {
+  padding: 5px 0 0 5px;
+}

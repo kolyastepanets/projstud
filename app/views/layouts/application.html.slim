@@ -13,18 +13,23 @@ html lang="en"
         .logo
           p
             = link_to "stackoverflow", root_path
-        ul.navbar-links
-          li= link_to 'Main', root_path
-          li= link_to 'Help', help_path
-          - if user_signed_in?
-            li= link_to "Log out", destroy_user_session_path, :method => :delete
-            li.user-welcome
-              |
-                Welcome,
-              = current_user.email
-          - else
-            li= link_to('Login', new_user_session_path)
-            li= link_to('Sign up now', new_user_registration_path)
+        .right-block
+          ul.navbar-links
+            li= link_to 'Main', root_path
+            li= link_to 'Help', help_path
+            - if user_signed_in?
+              li= link_to "Log out", destroy_user_session_path, :method => :delete
+              li.user-welcome
+                |
+                  Welcome,
+                = current_user.email
+            - else
+              li= link_to('Login', new_user_session_path)
+              li= link_to('Sign up now', new_user_registration_path)
+          = form_tag search_path, method: :get, class: "form-inline" do
+            = text_field_tag  :query, params[:query], class: "form-control", placeholder: 'Search'
+            = select_tag(:type, options_for_select([["Answer", "Answer"],["Question", "Question"],["Comment", "Comment"], ["User", "User"]],
+              selected: params[:type]), prompt: "Everywhere")
     .container
       div id="header"
         div id="logo"

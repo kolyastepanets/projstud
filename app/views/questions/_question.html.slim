@@ -1,0 +1,55 @@
+.question id = "question-#{@question.id}" data = { question_id: "#{@question.id}" }
+  .title
+    h1.question-title
+      = @question.title
+
+    .subscription
+      - if can?(:create, Subscription.new(question: @question))
+        .subscribe
+          p =link_to 'Subscribe', question_subscriptions_path(@question), class: "subscribe", method: :post, remote: true
+
+  = render 'votes/vote', votable: @question, type: "question"
+
+  .question-show-stuff
+    p.question-body
+      = @question.body
+
+    - if @question.attachments.any?
+      p Attachments:
+      ul
+        - @question.attachments.each do |a|
+          li id="attachment-#{a.id}"
+            = link_to a.file.file.filename, a.file.url
+            p= link_to 'Delete File', attachment_path(a), method: :delete, remote: true if @question.user == current_user
+
+    - if can?(:update, @question)
+      = link_to 'Edit', '', class: 'edit-question-link', data: { question_id: @question.id }
+
+      = form_for @question, remote: true, html: { id: "edit-question-#{@question.id}" } do |f|
+        p= f.label :title, "Edit Title"
+        p= f.text_area :title
+        p= f.label :body, "Edit Question Body"
+        p= f.text_area :body
+        .question-errors
+        p= f.submit 'Save'
+
+      p.link-delete-question
+        = link_to 'Delete question', question_path(@question), method: :delete
+
+    .user-info
+      .user-stuff
+        p.time
+          - if @question.created_at > Time.zone.now.beginning_of_day
+            |
+              asked 
+            => time_ago_in_words(@question.created_at)
+            |
+              ago
+          - else
+            |
+              asked 
+            => @question.created_at.strftime("%b %d '%y at %H:%M")
+        p.user
+          = @question.user.email
+
+    = render 'comments/comments', commentable: @question, commentable_type: 'Question'

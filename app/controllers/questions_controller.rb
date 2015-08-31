@@ -7,8 +7,7 @@ class QuestionsController < ApplicationController
 
     include Voted
 
-    respond_to :js, only: :create
-    respond_to :html
+    respond_to :js, only: [:create, :update]
 
     authorize_resource
 
@@ -33,6 +32,7 @@ class QuestionsController < ApplicationController
 
     def update
       @question.update(question_params)
+      respond_with(@question)
     end
 
     def destroy

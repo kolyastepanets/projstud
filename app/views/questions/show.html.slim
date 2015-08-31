@@ -1,42 +1,8 @@
-.question id = "question-#{@question.id}" data = { question_id: "#{@question.id}" }
-  = render 'votes/vote', votable: @question, type: "question"
-
-  .question-show-stuff
-    h1.question-title
-      = @question.title
-
-    p.question-body
-      = @question.body
-
-    - if @question.attachments.any?
-      p Attachments:
-      ul
-        - @question.attachments.each do |a|
-          li id="attachment-#{a.id}"
-            = link_to a.file.file.filename, a.file.url
-            p= link_to 'Delete File', attachment_path(a), method: :delete, remote: true if @question.user == current_user
-
-    - if can?(:update, @question)
-      = link_to 'Edit', '', class: 'edit-question-link', data: { question_id: @question.id }
-
-      = form_for @question, remote: true, html: { id: "edit-question-#{@question.id}" } do |f|
-        p= f.label :title, "Edit Title"
-        p= f.text_area :title
-        p= f.label :body, "Edit Question Body"
-        p= f.text_area :body
-        p= f.submit 'Save'
-
-      p.link-delete-question
-        = link_to 'Delete question', question_path(@question), method: :delete
-
-    .subscription
-      - if can?(:create, Subscription.new(question: @question))
-        .subscribe
-          p =link_to 'Subscribe', question_subscriptions_path(@question), class: "subscribe", method: :post, remote: true
-
-    = render 'comments/comments', commentable: @question, commentable_type: 'Question'
+= render 'questions/question', locals: { question: @question }
 
 .answers
+  .count-answers
+    = pluralize(@question.answers.count, 'Answer')
   = render @question.answers
 
 = form_for [@question, @answer], remote: true, data: { type: :json } do |f|
@@ -47,6 +13,7 @@
     = render partial: 'questions/attachment_fields', locals: {f: a}
     p= link_to_add_association 'Add Another File', f, :attachments
 
+  .answer-errors
   p= f.submit 'Add answer'
 
 p.link-all-questions

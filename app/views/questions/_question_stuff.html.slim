@@ -14,7 +14,7 @@
         .question-link id="question-#{question.id}"
           h3 = link_to question.title, click_question_path(question)
         .info-about-question
-          p
+          p.time
             - if question.created_at > Time.zone.now.beginning_of_day
               |
                 asked 
@@ -24,6 +24,9 @@
             - else
               |
                 asked 
-              => question.created_at.strftime("%b %d, %Y")
+              => question.created_at.strftime("%b %d '%y at %H:%M")
+          p.user
+            = question.user.email
+
   = will_paginate @questions
 = subscribe_to "/questions"
