@@ -36,7 +36,7 @@ html lang="en"
           = image_tag("stackoverflow.jpg")
         div id="menu"
           ul
-            li= link_to "Questions", questions_path
+            /li= link_to "Questions", questions_path
             li= link_to "Ask Question", new_question_path
         .notifications
           = render 'layouts/notice'

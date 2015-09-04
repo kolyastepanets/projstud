@@ -1,7 +1,7 @@
 -if @results.empty?
   p Sorry, we didn't find anything. Please try again.
 - @results.each do |r|
-    - if r.class.name=="Question"
+    - if r.class.name == "Question"
       .panel-body
         p
           = r.class.name

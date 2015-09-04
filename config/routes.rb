@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   end
 
   use_doorkeeper
-  root  'static_pages#home'
+  root  'questions#index'
   match '/help',    to: 'static_pages#help',    via: 'get'
   match '/about',   to: 'static_pages#about',   via: 'get'
 
