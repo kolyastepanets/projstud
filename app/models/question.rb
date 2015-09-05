@@ -9,7 +9,7 @@ class Question < ActiveRecord::Base
   belongs_to :user
 
   validates :title, :body, :user_id, presence: true
-	validates :title, length: { maximum: 50 }
+	validates :title, length: { maximum: 45 }
 
   default_scope { order('created_at DESC') }
 

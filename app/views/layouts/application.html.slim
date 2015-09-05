@@ -12,7 +12,7 @@ html lang="en"
       .navbar
         .logo
           p
-            = link_to "stackoverflow", root_path
+            = link_to "Questions and Answers", root_path
         .right-block
           ul.navbar-links
             li= link_to 'Main', root_path
@@ -32,8 +32,6 @@ html lang="en"
               selected: params[:type]), prompt: "Everywhere")
     .container
       div id="header"
-        div id="logo"
-          = image_tag("stackoverflow.jpg")
         div id="menu"
           ul
             /li= link_to "Questions", questions_path
@@ -42,5 +40,3 @@ html lang="en"
           = render 'layouts/notice'
       div id="content"
         = yield
-    .footer
-      .footer-wrap
