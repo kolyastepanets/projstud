@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  before_create :skip_confirmation!
+
   has_many :questions, dependent: :destroy
   has_many :answers, dependent: :destroy
   has_many :votes, dependent: :destroy, as: :votable
@@ -27,6 +29,7 @@ class User < ActiveRecord::Base
       user.authorizations.create(provider: auth.provider, uid: auth.uid)
     else
       user = generate_user(email)
+      user.skip_confirmation!
       user.save
       user.authorizations.create(provider: auth.provider, uid: auth.uid)
     end
