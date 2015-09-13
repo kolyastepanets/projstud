@@ -1,6 +1,9 @@
 require "application_responder"
 
 class ApplicationController < ActionController::Base
+  include ActionController::Caching::Pages
+  self.page_cache_directory = "#{Rails.root.to_s}/public/page_cache"
+
   self.responder = ApplicationResponder
   respond_to :html
 

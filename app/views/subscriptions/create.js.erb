@@ -1,5 +1,7 @@
-<% if @subscription.errors.any? %>
-  $('.subscribe').html("You've already subscribed");
+<% if @subscription.errors.present? %>
+    <% @subscription.errors.full_messages.each do |message| %>
+        $('.subscription').html('<%= j message %>');
+    <% end %>
 <% else %>
-  $('.subscribe').html("Successfully subscribed");
+    $('.subscription').html('<a class="subscribe" data-remote="true" rel="nofollow" data-method="delete" href="/questions/<%=@question.id%>/subscriptions/<%=@subscription.id%>">Unsubscribe</a>');
 <% end %>

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   resources :questions do
-    resources :subscriptions, only: :create
+    resources :subscriptions, only: [:create, :destroy]
     resources :answers, only: [:create, :update, :destroy, :vote_up, :vote_down, :cancel_vote]
     resources :comments, :defaults => { :commentable => 'question' }
     member do

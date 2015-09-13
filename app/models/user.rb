@@ -47,4 +47,8 @@ class User < ActiveRecord::Base
       DailyMailer.digest(user).deliver_later
     end
   end
+
+   def subscribed?(question)
+    Subscription.exists?(user: self, question: question)
+  end
 end

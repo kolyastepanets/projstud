@@ -34,9 +34,14 @@ class Ability
 
     can :create, Comment
 
-    can :create, Subscription
+    can :create, Subscription do |subscription|
+      !user.subscribed?(subscription.question)
+    end
 
-    can :click, Question
+    can :destroy, Subscription do |subscription|
+      user.subscribed?(subscription.question) && user != subscription.question.user
+    end
+
     can :destroy, Attachment do |attachment|
       attachment.attachable.user_id == user.id
     end

@@ -1,25 +1,32 @@
 .question id = "question-#{@question.id}" data = { question_id: "#{@question.id}" }
   .title
     h1.question-title
-      = @question.title
+      - cache_unless current_user.try(:admin), [@question, 'title'] do
+        = @question.title
 
     .subscription
       - if can?(:create, Subscription.new(question: @question))
-        .subscribe
-          p =link_to 'Subscribe', question_subscriptions_path(@question), class: "subscribe", method: :post, remote: true
+        p =link_to 'Subscribe', question_subscriptions_path(@question), class: "subscribe", method: :post, remote: true
 
-  = render 'votes/vote', votable: @question, type: "question"
+      - if @subscription && can?(:destroy, @subscription)
+        p= link_to 'Unsubscribe', question_subscription_path(@question, @subscription),
+                class: "subscribe", remote: true, method: :delete
+
+  - cache_unless current_user, [@question, 'votes'] do
+    = render 'votes/vote', votable: @question, type: "question"
 
   .question-show-stuff
     p.question-body
-      = @question.body
+      - cache_unless current_user.try(:admin), [@question, 'body'] do
+        = @question.body
 
     - if @question.attachments.any?
       p Attachments:
       ul
         - @question.attachments.each do |a|
           li id="attachment-#{a.id}"
-            = link_to a.file.file.filename, a.file.url
+            - cache a do
+              = link_to a.file.file.filename, a.file.url
             p= link_to 'Delete File', attachment_path(a), method: :delete, remote: true if @question.user == current_user
 
     - if can?(:update, @question)
@@ -52,4 +59,5 @@
         p.user
           = @question.user.email
 
-    = render 'comments/comments', commentable: @question, commentable_type: 'Question'
+    - cache_unless current_user.try(:admin), [@question, 'comments', user_signed_in?] do
+      = render 'comments/comments', commentable: @question, commentable_type: 'Question'

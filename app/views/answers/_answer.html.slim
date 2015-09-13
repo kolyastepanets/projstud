@@ -1,7 +1,8 @@
 - if answer.persisted?
   .answer id="answer-#{answer.id}"
     .vote-answer-stuff
-      = render 'votes/vote', votable: answer, type: "answer"
+      - cache_unless current_user, [answer, 'votes'] do
+        = render 'votes/vote', votable: answer, type: "answer"
 
       .solution-answer
         -if answer.is_solution
@@ -14,19 +15,22 @@
                                           class: 'solution-link'
     .answer-stuff
       p.answer-body
-        = answer.body
+        - cache_unless current_user.try(:admin), [answer, 'body'] do
+          = answer.body
+
+      - if answer.attachments.any?
+        p Attachments:
+        ul
+          - answer.attachments.each do |a|
+            li id="attachment-#{a.id}"
+              .link-to-file
+                - cache a do
+                  = link_to a.file.file.filename, a.file.url
+                  - if can?(:destroy, a)
+                    p= link_to 'Delete File', attachment_path(a), id: "delete-attach-#{a.id}",
+                              class: 'delete-attach-link', method: :delete, remote: true
 
       - if can?(:crud, answer)
-        - if answer.attachments.any?
-          p Attachments:
-          ul
-            - answer.attachments.each do |a|
-              li id="attachment-#{a.id}"
-                .link-to-file
-                  = link_to a.file.file.filename, a.file.url
-                p= link_to 'Delete File', attachment_path(a), id: "delete-attach-#{a.id}",
-                            class: 'delete-attach-link', method: :delete, remote: true
-
         = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
 
         = form_for [@question, answer], remote: true, html: { id: "edit-answer-#{answer.id}" } do |f|
@@ -54,5 +58,5 @@
               => answer.created_at.strftime("%b %d '%y at %H:%M")
           p.user
             = answer.user.email
-
-      = render 'comments/comments', commentable: answer, commentable_type: "Answer"
+      - cache_unless current_user.try(:admin), [answer, 'comments', user_signed_in?] do
+        = render 'comments/comments', commentable: answer, commentable_type: "Answer"

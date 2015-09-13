@@ -3,7 +3,8 @@
     - commentable.comments.each do |comment|
       - if comment.persisted?
         p.comment-content id= "comment-#{comment.id}"
-          = comment.content
+          - cache comment do
+            = comment.content
 
 - if can?(:create, Comment)
   p.add-comment

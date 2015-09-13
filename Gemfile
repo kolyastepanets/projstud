@@ -53,6 +53,8 @@ gem 'dotenv'
 gem 'dotenv-rails'
 gem 'therubyracer'
 gem 'unicorn'
+gem 'redis-rails'
+gem 'actionpack-page_caching'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
