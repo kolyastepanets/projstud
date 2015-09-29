@@ -1,7 +1,5 @@
 == Клон сайта stackoverflow
 
-Разработан для учебных целей.
+Разработан для учебных целей на онлайн курсах {школы Thinknetica}[http://www.thinknetica.com/].
 
-{<img src="https://codeclimate.com/github/kolyastepanets/projstud/badges/gpa.svg" />}[https://codeclimate.com/github/kolyastepanets/projstud]
-
-{<img src="https://travis-ci.org/kolyastepanets/projstud.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/kolyastepanets/projstud]
+{<img src="https://codeclimate.com/github/kolyastepanets/projstud/badges/gpa.svg" />}[https://codeclimate.com/github/kolyastepanets/projstud] {<img src="https://travis-ci.org/kolyastepanets/projstud.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/kolyastepanets/projstud]
