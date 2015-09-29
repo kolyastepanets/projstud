@@ -1,32 +1,41 @@
--if @results.empty?
-  p Sorry, we didn't find anything. Please try again.
-- @results.each do |r|
-    - if r.class.name == "Question"
-      .panel-body
-        p
-          = r.class.name
-          p= link_to r.title, r
-
-    - elsif r.class.name == "Answer"
-      .panel-heading
-        p
-          = r.class.name
-      .panel-body
-        p
-          = link_to r.body, r.question
-
-    - elsif r.class.name == "Comment"
-      .panel-heading
-        p
-          = r.class.name
+.result
+  -if @results.empty?
+    p Sorry, we didn't find anything. Please try again.
+  - @results.each do |r|
+      - if r.class.name == "Question"
         .panel-body
           p
-            - if commentable = "Answer"
-              = link_to r.content, r.commentable.question
-            - else
-              = link_to r.content, r.commentable
+            = r.class.name
+            |
+              :
+            p= link_to r.title, r
+            = truncate(r.body)
 
-    - elsif r.class.name == "User"
-      .panel-body
-        p
-          = r.email
+      - elsif r.class.name == "Answer"
+        .panel-heading
+          p
+            = r.class.name
+            |
+              :
+        .panel-body
+          p
+            = link_to r.body, r.question
+
+      - elsif r.class.name == "Comment"
+        .panel-heading
+          = r.class.name
+          |
+            :
+          .panel-body
+            p
+              - if commentable = "Answer"
+                p
+                  = link_to r.content, r.commentable.question
+              - else
+                p
+                  = link_to r.content, r.commentable
+
+      - elsif r.class.name == "User"
+        .panel-body
+          p
+            = r.email

@@ -30,6 +30,7 @@ html lang="en"
             = text_field_tag  :query, params[:query], class: "form-control", placeholder: 'Search'
             = select_tag(:type, options_for_select([["Answer", "Answer"],["Question", "Question"],["Comment", "Comment"], ["User", "User"]],
               selected: params[:type]), prompt: "Everywhere")
+            = submit_tag 'Go'
     .container
       div id="header"
         div id="menu"

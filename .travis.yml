@@ -1,0 +1,16 @@
+language: ruby
+addons:
+  postgresql: "9.4"
+services:
+  - redis-server
+rvm:
+  - 1.26.11
+gemfile: Gemfile
+before_script:
+  - psql -c 'create database projstud_test;' -U postgres
+  - cp config/database.yml.travis  config/database.yml
+  - bundle exec rackup private_pub.ru -s thin -E production &
+  - sleep 3
+script:
+  - bundle exec rake db:setup
+  - bundle exec rspec spec

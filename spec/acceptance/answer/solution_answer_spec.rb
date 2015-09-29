@@ -69,7 +69,7 @@ can mark answer as the solution answer
         expect(page).to have_css('div#accepted-answer')
         expect(page).to_not have_content 'Mark as solution'
       end
-      
+
       within '.answer:first-child' do
         expect(page).to have_css('div#accepted-answer')
         expect(page).to_not have_content 'Mark as solution'
