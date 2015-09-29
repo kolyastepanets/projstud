@@ -18,5 +18,3 @@ config/database.yml
 
 config/*.sphinx.conf
 db/sphinx
-
-config/private_pub.yml
